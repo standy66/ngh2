@@ -1,0 +1,65 @@
+import re
+import os
+from setuptools import setup, find_packages
+
+exec(open("src/ngh2/_version.py", encoding="utf-8").read())
+
+
+def read(*names, **kwargs):
+    with open(os.path.join(os.path.dirname(__file__), *names), "r") as fin:
+        return fin.read()
+
+
+def main():
+    setup(
+        name="ngh2",
+        version=__version__,
+        license="Apache License Version 2.0",
+        description=("Python h2-like interface based on nghttp2 and cffi"),
+        long_description='%s\n%s' % (
+            re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.md')),
+            re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('RELEASE.md')),
+        ),
+        long_description_content_type='text/markdown',
+        author="Andrew Stepanov",
+        url="https://github.com/standy66/ngh2",
+        classifiers=[
+            "Development Status :: 4 - Beta",
+            "Intended Audience :: Developers",
+            "Intended Audience :: Telecommunications Industry",
+            "License :: OSI Approved :: Apache Software License",
+            "Operating System :: MacOS",
+            "Operating System :: MacOS :: MacOS X",
+            "Operating System :: POSIX :: BSD",
+            "Operating System :: POSIX :: Linux",
+            "Programming Language :: Python",
+            "Programming Language :: Python :: 3 :: Only",
+            "Programming Language :: Python :: 3.5",
+            "Programming Language :: Python :: 3.6",
+            "Programming Language :: Python :: 3.7",
+            "Programming Language :: Python :: 3.8",
+            "Programming Language :: Python :: Implementation :: CPython",
+            "Programming Language :: Python :: Implementation :: PyPy",
+            "Framework :: Pytest",
+            "Topic :: Internet",
+            "Topic :: Internet :: WWW/HTTP",
+            "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+            "Topic :: Software Development :: Libraries",
+            "Topic :: Software Development :: Libraries :: Python Modules",
+            "Topic :: System :: Networking",
+        ],
+        keywords=[
+            "sans-io", "cffi", "network", "http2",
+        ],
+        packages=find_packages('src'),
+        package_dir={'': 'src'},
+        python_requires=">=3.5",
+        setup_requires=["cffi>=1.0.0", "pytest-runner"],
+        install_requires=["cffi>=1.0.0"],
+        tests_require=["pytest", "hypothesis"],
+        cffi_modules=["src/ngh2/_nghttp2_ext_build.py:ffibuilder"],
+    )
+
+
+if __name__ == "__main__":
+    main()

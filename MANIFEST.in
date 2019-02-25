@@ -1,0 +1,5 @@
+recursive-include third_party/nghttp2/lib/ *.h *.c
+include third_party/nghttp2_version/includes/nghttp2/nghttp2ver.h
+include src/ngh2/nghttp2.cffi-def.h
+include RELEASE.md
+include README.md
